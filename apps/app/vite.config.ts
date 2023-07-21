@@ -20,6 +20,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       host: true,
       port: 3001,
     },
+    build: {
+      assetsDir: "./assets",
+    },
     base: isStaging ? "/web__demo__web-ifc-three/" : "/",
   };
 });
