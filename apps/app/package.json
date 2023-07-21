@@ -1,0 +1,32 @@
+{
+  "name": "vite-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "prepare-assets": "cp ../../node_modules/web-ifc/web-ifc.wasm ./public/web-ifc-0.0.42 && cp ../../node_modules/web-ifc/web-ifc-mt.wasm ./public/web-ifc-0.0.42",
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "tsc",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@tweakpane/core": "^1.1.9",
+    "@types/three": "^0.154.0",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "eslint": "8.44.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "5.1.6",
+    "vite": "^4.4.2",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {
+    "stats": "*",
+    "stats.js": "^0.17.0",
+    "three": "^0.154.0",
+    "tweakpane": "^3.1.10",
+    "tweakpane-plugin-file-import": "^0.1.4",
+    "web-ifc-three": "^0.0.125"
+  }
+}

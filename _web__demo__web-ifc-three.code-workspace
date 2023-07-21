@@ -1,0 +1,42 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "extensions": {
+    "recommendations": [
+      "naumovs.color-highlight",
+      "editorconfig.editorconfig",
+      "simonsiefke.svg-preview",
+      "esbenp.prettier-vscode",
+      "styled-components.vscode-styled-components",
+      "dbaeumer.vscode-eslint"
+    ]
+  },
+  "settings": {
+    "eslint.enable": true,
+    "eslint.codeActionsOnSave.mode": "all",
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "files.insertFinalNewline": true,
+    "files.eol": "\n",
+    "[javascript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "[html]": {
+      "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    }
+  }
+}

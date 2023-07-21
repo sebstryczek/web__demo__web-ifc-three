@@ -1,0 +1,40 @@
+{
+  "name": "package-template",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/index.esm.js",
+  "module": "./dist/index.cjs.js",
+  "types": "./declarations/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./*": {
+      "import": "./dist/*/index.esm.js",
+      "require": "./dist/*/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "dev": "vite build --watch & tsc -w --outDir declarations --emitDeclarationOnly",
+    "test": "vitest",
+    "lint": "eslint \"lib/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint:fix": "eslint \"lib/**/*.{ts,tsx}\" --fix"
+  },
+  "devDependencies": {
+    "eslint": "8.44.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "5.1.6",
+    "vite": "^4.4.2",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {},
+  "peerDependencies": {}
+}

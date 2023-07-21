@@ -1,0 +1,45 @@
+{
+  "name": "stats",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/index.es.js",
+  "module": "./dist/index.cjs.js",
+  "types": "./declarations/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./*": {
+      "import": "./dist/*/index.es.js",
+      "require": "./dist/*/index.cjs.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "vite build && tsc --outDir declarations --emitDeclarationOnly",
+    "dev": "vite build --watch & tsc -w --outDir declarations --emitDeclarationOnly",
+    "test": "vitest",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --max-warnings=0",
+    "lint:fix": "eslint \"src/**/*.{ts,tsx}\" --fix"
+  },
+  "devDependencies": {
+    "@types/three": "^0.154.0",
+    "eslint": "8.44.0",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "typescript": "5.1.6",
+    "vite": "^4.4.2",
+    "vitest": "^0.33.0"
+  },
+  "dependencies": {
+    "@probe.gl/stats-widget": "^4.0.4"
+  },
+  "peerDependencies": {
+    "three": "^0.154.0"
+  }
+}
