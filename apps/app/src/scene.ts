@@ -1,4 +1,4 @@
-// import { createStats } from "stats";
+import { createStats } from "stats";
 import {
   AmbientLight,
   Color,
@@ -21,7 +21,7 @@ export class ThreeScene {
   private camera: PerspectiveCamera;
   private renderer: WebGLRenderer;
   private controls: OrbitControls;
-  // private stats: { update: () => void };
+  private stats: { update: () => void };
   private grid: GridHelper;
 
   constructor() {
@@ -47,7 +47,7 @@ export class ThreeScene {
     this.grid = new GridHelper();
     this.setupScene();
 
-    // this.stats = createStats({ renderer: this.renderer });
+    this.stats = createStats({ renderer: this.renderer });
   }
 
   setupScene() {
@@ -63,9 +63,9 @@ export class ThreeScene {
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
 
-    // if (this.stats !== undefined) {
-    //   this.stats.update();
-    // }
+    if (this.stats !== undefined) {
+      this.stats.update();
+    }
 
     requestAnimationFrame(this.setupAnimation);
   };
