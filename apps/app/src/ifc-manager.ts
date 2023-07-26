@@ -17,8 +17,6 @@ class IfcManager {
   private ifcModels: Array<IfcModel> = [];
   private ifcLoader: IFCLoader;
 
-  private offset = 0;
-
   constructor(scene: THREE.Scene) {
     this.scene = scene;
     this.ifcLoader = new IFCLoader();
@@ -32,7 +30,7 @@ class IfcManager {
     // );
 
     await this.ifcLoader.ifcManager.setWasmPath(
-      "./web-ifc-three/web-ifc-0.0.42/",
+      "./web-ifc-three/web-ifc-0.0.42-debug/",
     );
 
     await this.ifcLoader.ifcManager.parser.setupOptionalCategories({
