@@ -5,6 +5,7 @@ import {
   computeBoundsTree,
   disposeBoundsTree,
 } from "three-mesh-bvh";
+import { IFCRELDEFINESBYPROPERTIES } from "web-ifc";
 import { IfcModel } from "web-ifc-three/IFC/BaseDefinitions";
 import { Subset } from "web-ifc-three/IFC/components/subsets/SubsetManager";
 import { IFCLoader } from "web-ifc-three/IFCLoader";
@@ -68,8 +69,79 @@ class IfcManager {
     // @ts-expect-error loadAsync exists
     const ifcModel = await this.ifcLoader.loadAsync(ifcURL);
 
-    // const version = this.ifcLoader.ifcManager.ifcAPI.GetVersion(); // Verify how to use it when using multithreading
-    // console.log(`IFC version: ${version}`);
+    // @ts-expect-error
+    const version = this.ifcLoader.ifcManager.ifcAPI.GetVersion(); // Verify how to use it when using multithreading
+    console.log(`IFC version: ${version}`);
+
+    const element = this.ifcLoader.ifcManager.ifcAPI.GetLine(0, 12_935);
+    const guid = element.GlobalId.value;
+    console.log(element);
+    console.log(guid);
+    const lines = this.ifcLoader.ifcManager.ifcAPI.GetLineIDsWithType(
+      0,
+      IFCRELDEFINESBYPROPERTIES,
+    );
+    const propertySetIds = [];
+    for (let index = 0; index < lines.size(); index++) {
+      // Getting the ElementID from Lines
+      const relatedID = lines.get(index);
+
+      // Getting Element Data using the relatedID
+      const relDefProps = this.ifcLoader.ifcManager.ifcAPI.GetLine(
+        0,
+        relatedID,
+      );
+
+      // Boolean for Getting the IDs if relevant IDs are present
+      let foundElement = false;
+
+      // RelatedObjects is a property that is an Array of Objects.
+      // The way IFC is structured, Entities that use same property are included inside RelatedObjects
+      // We Search inside RelatedObjects if our ElementID is present or not
+      relDefProps.RelatedObjects.forEach((relID) => {
+        if (relID.value === 12_935) {
+          foundElement = true;
+        }
+      });
+
+      if (foundElement) {
+        // Relevant IDs are found we then we go to RelatingPropertyDefinition
+        // RelatingPropertyDefinition contain the IDs of Property Sets
+        // But they should not be array, hence using (!Array.isArray())
+        if (!Array.isArray(relDefProps.RelatingPropertyDefinition)) {
+          console.log("Found");
+          const handle = relDefProps.RelatingPropertyDefinition;
+
+          // Storing and pushing the IDs found in propSetIds Array
+          propertySetIds.push(handle.value);
+        }
+      }
+    }
+    const propsets =
+      propertySetIds.map((id) =>
+        this.ifcLoader.ifcManager.ifcAPI.GetLine(0, id, true),
+      ) ?? [];
+
+    // propsets.forEach((set) => {
+    //   // There can multiple Property Sets
+    //   set.HasProperties.forEach((p: any) => {
+    //     // We will check if the Values that are present are not null
+    //     if (p.NominalValue != undefined) {
+    //       // This is an e.g. filter, you can write down your various conditions to modify the result
+    //       if (p.NominalValue.label === "IFCBOOLEAN") {
+    //         // We will talk about this function in Frontend Part
+    //         console.log(p.Name.value, p.NominalValue.value);
+    //       } else {
+    //         // We will talk about this function in Frontend Part
+    //         console.log(p.NominalValue.label, p.NominalValue.value);
+    //       }
+    //     }
+    //   });
+    // });
+    //
+    //
+    //
+    //
 
     const unsupportedTypes =
       this.ifcLoader.ifcManager.ifcAPI.wasmModule.GetUnsupportedTypes();
